@@ -1,8 +1,3 @@
-echo -n "test_secret1" | gcloud secrets create TEST_SECRET --replication-policy="automatic" --data-file=-
-
-gcloud secrets add-iam-policy-binding TEST_SECRET --member="serviceAccount:davcon-server@reportall.iam.gserviceaccount.com" --role="roles/secretmanager.admin"
-
-gcloud secrets versions access version-id secret="TEST_SECRET"
 
 
 
