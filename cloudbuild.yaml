@@ -4,14 +4,14 @@ steps:
     args:
       - build
       - '-t'
-      - 'europe-west1-docker.pkg.dev/cbuild/flaskdemo:tag1'
+      - 'europe-west1-docker.pkg.dev/reportall/cbuild/flaskdemo:tag1'
       - .
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - 'europe-west1-docker.pkg.dev/cbuild/flaskdemo:tag1'
+      - 'europe-west1-docker.pkg.dev/reportall/cbuild/flaskdemo:tag1'
 timeout: 1200s
 images:
-  - 'europe-west1-docker.pkg.dev/cbuild/flaskdemo:tag1'
+  - 'europe-west1-docker.pkg.dev/reportall/cbuild/flaskdemo:tag1'
 options:
   logging: CLOUD_LOGGING_ONLY
