@@ -1,5 +1,12 @@
 
 steps:
+  # Build and push app 1
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1', './nginx']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
+
+  # Build and push app 2
   - name: gcr.io/cloud-builders/docker
     args:
       - build
