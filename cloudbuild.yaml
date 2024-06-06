@@ -21,7 +21,6 @@ steps:
 
 
   - name: 'bash'
-    entrypoint: 'bash'
     script: |
       #!/usr/bin/env bash
       echo "Hello $_USER"
