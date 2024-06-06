@@ -18,7 +18,7 @@ steps:
   #   args: ['pull', 'docker/compose:1.24.0']
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', '--zone=europe-west1-b', 'gustav@test-dc3', '--command', '/home/composer/auth.sh']
+    args: ['compute', 'ssh', '--zone=europe-west1-b', 'composer@test-dc3', '--command', '/home/composer/auth.sh']
 
   - name: 'bash'
     script: |
