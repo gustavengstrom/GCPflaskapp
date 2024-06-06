@@ -1,17 +1,18 @@
 
 steps:
   # Build and push app 1
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1', './nginx']
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['build', '-t', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1', './nginx']
 
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
   
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', '--zone=europe-west1-b', 'gustav@test-dc3']
+  # - name: 'gcr.io/cloud-builders/gcloud'
+  #   args: ['compute', 'ssh', '--zone=europe-west1-b', 'gustav@test-dc3']
 
-  - name: 'docker'
-    args: ['pull', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
+  # - name: 'docker'
+  #   args: ['pull', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
+
 
   # - name: 'docker'
   #   args: ['pull', 'docker/compose:1.24.0']
@@ -21,10 +22,10 @@ steps:
       echo "Hello $USER"
       echo "Hello $PWD"
 
-  - name: 'bash'
+
+  - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args: ['/home/composer/auth.sh']
-
 
   - name: 'bash'
     script: |
