@@ -45,6 +45,9 @@ sudo journalctl -u composer.service
 sudo journalctl --vacuum-time=5days
 docker-credential-gcr configure-docker --registries europe-west1-docker.pkg.dev
 
+# Cloud build notes
+
+In the Cloud Build Console we need to create a build trigger
 
 
 # SCRAPS:

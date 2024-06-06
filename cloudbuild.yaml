@@ -23,6 +23,7 @@ steps:
 
 timeout: 1200s
 images:
-  - 'europe-west1-docker.pkg.dev/reportall/cbuild/flaskdemo:tag1'
+  - 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1'
+  
 options:
   logging: CLOUD_LOGGING_ONLY
