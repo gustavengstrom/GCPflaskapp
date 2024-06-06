@@ -31,7 +31,7 @@ steps:
           echo "enter 1 bash command per line"
           ls -la
           gcloud version
-          ls /home
+          ls -la /home/composer
 
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
