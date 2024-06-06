@@ -3,20 +3,19 @@ steps:
   # Build and push app 1
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1', './nginx']
+    
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
+  
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['compute', 'ssh', '--zone=europe-west1-b', 'gustav@test-dc3']
 
-  # Build and push app 2
-  - name: gcr.io/cloud-builders/docker
-    args:
-      - build
-      - '-t'
-      - 'europe-west1-docker.pkg.dev/reportall/cbuild/flaskdemo:tag1'
-      - .
-  - name: gcr.io/cloud-builders/docker
-    args:
-      - push
-      - 'europe-west1-docker.pkg.dev/reportall/cbuild/flaskdemo:tag1'
+  - name: 'docker'
+    args: ['pull', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
+
+  - name: 'sh'
+    args: ['-c', '/usr/bin/docker run --rm -v  /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 up']
+
 timeout: 1200s
 images:
   - 'europe-west1-docker.pkg.dev/reportall/cbuild/flaskdemo:tag1'
