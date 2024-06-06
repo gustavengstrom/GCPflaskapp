@@ -21,7 +21,7 @@ steps:
       #!/usr/bin/env bash
       echo "Hello $USER"
       echo "Hello $PWD"
-
+      echo $(ls /home/)
 
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
