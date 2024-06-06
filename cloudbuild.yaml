@@ -19,11 +19,11 @@ steps:
   - name: 'bash'
     script: |
       #!/usr/bin/env bash
-      /usr/bin/docker run --rm -v  /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 up
+      docker run --rm -v  /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 up
 
 timeout: 1200s
 images:
   - 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1'
-  
+
 options:
   logging: CLOUD_LOGGING_ONLY

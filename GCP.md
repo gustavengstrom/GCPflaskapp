@@ -49,6 +49,10 @@ docker-credential-gcr configure-docker --registries europe-west1-docker.pkg.dev
 
 In the Cloud Build Console we need to create a build trigger
 
+Notes:
+https://medium.com/google-cloud/connect-to-compute-engine-using-ssh-keys-and-cloud-build-319fa517456
+
+
 
 # SCRAPS:
 
