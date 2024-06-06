@@ -16,10 +16,12 @@ steps:
   # - name: 'docker'
   #   args: ['pull', 'docker/compose:1.24.0']
   - name: 'bash'
+    entrypoint: 'bash'
     args: ['/home/composer/auth.sh']
 
 
   - name: 'bash'
+    entrypoint: 'bash'
     script: |
       #!/usr/bin/env bash
       echo "Hello $_USER"
