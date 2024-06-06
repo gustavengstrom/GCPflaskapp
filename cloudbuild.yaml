@@ -16,6 +16,12 @@ steps:
   # - name: 'docker'
   #   args: ['pull', 'docker/compose:1.24.0']
   - name: 'bash'
+    script: |
+      #!/usr/bin/env bash
+      echo "Hello $USER"
+      echo "Hello $PWD"
+
+  - name: 'bash'
     entrypoint: 'bash'
     args: ['/home/composer/auth.sh']
 
@@ -23,7 +29,7 @@ steps:
   - name: 'bash'
     script: |
       #!/usr/bin/env bash
-      echo "Hello $_USER"
+      echo "Hello $USER"
       /usr/bin/docker run --rm -v  /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 up
 
   # - name: 'docker'
