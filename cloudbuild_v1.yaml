@@ -8,16 +8,6 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
 
-
-
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'compute'
-      - 'scp'
-      - '--zone=europe-west1-b'
-      - 'pull_images.sh'
-      - 'gustav@test-dc3:/opt'
-
   # Pull image to GCE instance
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
