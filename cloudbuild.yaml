@@ -26,8 +26,9 @@ steps:
     args:
       - '-c'
       - |
-          ls -la
+          ls -la /
           ls -la ~/
+          ls -la /builder
           mkdir -p ~/root/.ssh
           touch /builder/home/.ssh/google_compute_known_hosts
           chmod g+w /builder/home/.ssh/google_compute_known_hosts
