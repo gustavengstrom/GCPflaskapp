@@ -26,7 +26,7 @@ steps:
       - '--zone=europe-west1-b'
       - 'gustav@test-dc3'
       - '--command'
-      - '/usr/bin/docker pull europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1'
+      - 'docker-credential-gcr configure-docker --registries europe-west1-docker.pkg.dev && /usr/bin/docker pull europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1'
 
 
   - name: 'gcr.io/cloud-builders/gcloud'
