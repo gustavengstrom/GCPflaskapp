@@ -14,7 +14,7 @@ steps:
       - 'compute'
       - 'scp'
       - 'pull_images.sh'
-      - 'gustav@test-dc3:/opt/'
+      - 'gustav@test-dc3:/tmp/'
       - '--zone=europe-west1-b'
 
 
@@ -26,7 +26,7 @@ steps:
       - '--zone=europe-west1-b'
       - 'gustav@test-dc3'
       - '--command'
-      - '/opt/pull_images.sh'
+      - '/tmp/pull_images.sh'
 
 timeout: 1200s
 images:
