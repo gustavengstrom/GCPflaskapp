@@ -33,7 +33,7 @@ steps:
           gcloud secrets versions access latest --secret=cloud-build-ssh-key > /builder/home/.ssh/id_rsa
           chmod 600 /builder/home/.ssh/id_rsa
           gcloud secrets versions access latest --secret=cloud-build-ssh-key-pub > /builder/home/.ssh/id_rsa.pub
-          chmod 600/builder/home/.ssh/id_rsa.pub
+          chmod 600 /builder/home/.ssh/id_rsa.pub
           set -x
           gcloud compute ssh test-dc3 --ssh-key-file=/builder/home/.ssh/id_rsa --zone=europe-west1-b
 
