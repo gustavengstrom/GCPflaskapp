@@ -16,24 +16,27 @@ steps:
   # - name: 'docker'
   #   args: ['pull', 'docker/compose:1.24.0']
 
-  # - name: 'gcr.io/cloud-builders/gcloud'  
+  # - name: 'gcr.io/cloud-builders/gcloud'
   #   args: ['compute', 'ssh', '--zone=europe-west1-b', 'gustav@test-dc3', '--command', '/usr/bin/docker run --rm -v  /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 up -d']
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'compute'
-      - 'scp'
+      - 'ssh'
       - '--zone=europe-west1-b'
-      - 'pull_images.sh'
-      - 'gustav@test-dc3:/home/gustav'
+      - 'gustav@test-dc3'
+      - '--command'
+      - 'TOKEN=$(curl --silent --header  "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token) && ACCESS=$(echo $${TOKEN} | grep --extended-regexp --only-matching "(ya29.[0-9a-zA-Z._-]*)") && /usr/bin/docker login -u oauth2accesstoken -p "$${ACCESS}" https://europe-west1-docker.pkg.dev && /usr/bin/docker pull europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1'
 
-  # Step 2: Set execute permissions on the script file
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', '--zone=europe-west1-b','gustav@test-dc3', '--command', 'chmod +x /home/gustav/pull_images.sh']
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', '--zone=europe-west1-b','gustav@test-dc3', '--command', '/home/gustav/pull_images.sh']
-
+    args:
+      - 'compute'
+      - 'ssh'
+      - '--zone=europe-west1-b'
+      - 'gustav@test-dc3'
+      - '--command'
+      - '/usr/bin/docker run --rm -v  /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 up -d --build'
 
   # - name: 'gcr.io/cloud-builders/gcloud'
   #   id: Connect to instance
