@@ -1,8 +1,8 @@
 
 steps:
   # Build and push app 1
-  # - name: 'gcr.io/cloud-builders/docker'
-  #   args: ['build', '-t', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1', './nginx']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1', './nginx']
 
   # - name: 'gcr.io/cloud-builders/docker'
   #   args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
@@ -17,8 +17,18 @@ steps:
   # - name: 'docker'
   #   args: ['pull', 'docker/compose:1.24.0']
 
+  # - name: 'gcr.io/cloud-builders/gcloud'
+  #   args: ['compute', 'ssh', '--zone=europe-west1-b', 'gustav@test-dc3', '--command', '/usr/bin/docker run --rm -v  /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 up -d']
+
+
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', '--zone=europe-west1-b', 'gustav@test-dc3', '--command', '/usr/bin/docker run --rm -v  /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 up -d']
+    args:
+      - 'compute'
+      - 'ssh'
+      - '--zone=europe-west1-b'
+      - 'gustav@test-dc3'
+      - '--command'
+      - '/usr/bin/docker run --rm -v  /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 up -d'
 
   # - name: 'gcr.io/cloud-builders/gcloud'
   #   id: Connect to instance
@@ -37,21 +47,21 @@ steps:
   #         set -x
   #         gcloud compute ssh test-dc3 --ssh-key-file=/builder/home/.ssh/id_rsa --zone=europe-west1-b
 
-  - name: 'bash'
-    script: |
-      #!/usr/bin/env bash
-      echo "Hello $USER"
-      echo "Hello $PWD"
-      echo $(ls /home/)
+  # - name: 'bash'
+  #   script: |
+  #     #!/usr/bin/env bash
+  #     echo "Hello $USER"
+  #     echo "Hello $PWD"
+  #     echo $(ls /home/)
 
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: "bash"
-    args:
-      - "-c"
-      - |
-          echo "enter 1 bash command per line"
-          ls -la
-          gcloud version
+  # - name: 'gcr.io/cloud-builders/gcloud'
+  #   entrypoint: "bash"
+  #   args:
+  #     - "-c"
+  #     - |
+  #         echo "enter 1 bash command per line"
+  #         ls -la
+  #         gcloud version
 
   # - name: 'gcr.io/cloud-builders/gcloud'
   #   entrypoint: 'bash'
