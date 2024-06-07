@@ -15,7 +15,7 @@ steps:
       - 'scp'
       - '--zone=europe-west1-b'
       - 'pull_images.sh'
-      - 'gustav@test-dc3:/opt'
+      - 'gustav@test-dc3:/opt/'
 
 
   # Run docker compose 
