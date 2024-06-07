@@ -25,14 +25,14 @@ steps:
       - 'scp'
       - '--zone=europe-west1-b'
       - 'pull_images.sh'
-      - 'gustav@test-dc3:/tmp'
+      - 'gustav@test-dc3:/home/gustav'
 
   # Step 2: Set execute permissions on the script file
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', '--zone=europe-west1-b','gustav@test-dc3', '--command', 'chmod +x /tmp/pull_images.sh']
+    args: ['compute', 'ssh', '--zone=europe-west1-b','gustav@test-dc3', '--command', 'chmod +x /home/gustav/pull_images.sh']
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', '--zone=europe-west1-b','gustav@test-dc3', '--command', '/tmp/pull_images.sh']
+    args: ['compute', 'ssh', '--zone=europe-west1-b','gustav@test-dc3', '--command', '/home/gustav/pull_images.sh']
 
 
   # - name: 'gcr.io/cloud-builders/gcloud'
