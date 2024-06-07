@@ -13,9 +13,9 @@ steps:
     args:
       - 'compute'
       - 'scp'
-      - '--zone=europe-west1-b'
       - 'pull_images.sh'
       - 'gustav@test-dc3:/opt/'
+      - '--zone=europe-west1-b'
 
 
   # Run docker compose 
