@@ -27,7 +27,7 @@ steps:
       - '-c'
       - |
           ls -la /builder
-          mkdir -p /builder/home/..ssh
+          mkdir -p /builder/home/.ssh
           touch /builder/home/.ssh/google_compute_known_hosts
           chmod g+w /builder/home/.ssh/google_compute_known_hosts
           gcloud secrets versions access latest --secret=cloud-build-ssh-key > /builder/home/.ssh/id_rsa
