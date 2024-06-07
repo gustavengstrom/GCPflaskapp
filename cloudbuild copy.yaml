@@ -14,7 +14,13 @@ images:
 options:
   logging: CLOUD_LOGGING_ONLY
 
-
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'compute'
+      - 'scp'
+      - '--zone=europe-west1-b'
+      - 'pull_images.sh'
+      - 'gustav@test-dc3:/home/gustav'
 # gcloud secrets create cloud-build-ssh-key --replication-policy="automatic" --data-file=/home/gustav/.ssh/cloud_build_ssh_key
 
 # gcloud secrets create cloud-build-ssh-key-pub --replication-policy="automatic" --data-file=/home/gustav/.ssh/cloud_build_ssh_key.pub
