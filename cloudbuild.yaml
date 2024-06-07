@@ -24,6 +24,7 @@ steps:
       - 'compute'
       - 'scp'
       - '--zone=europe-west1-b'
+      - '-p'
       - 'pull_images.sh'
       - 'gustav@test-dc3:/home/gustav'
 
