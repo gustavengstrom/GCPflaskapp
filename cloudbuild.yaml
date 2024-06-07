@@ -34,6 +34,7 @@ steps:
     args:
       - 'compute'
       - 'scp'
+      - '--zone=europe-west1-b'
       - 'pull_images.sh'
       - 'gustav@test-dc3:/home/gustav'
 
