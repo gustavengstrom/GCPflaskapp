@@ -26,7 +26,7 @@ steps:
       - '--zone=europe-west1-b'
       - 'gustav@test-dc3'
       - '--command'
-      - '/tmp/pull_images.sh'
+      - 'chmod +x /home/gustav/pull_images.sh && bash /home/gustav/pull_images.sh'
 
 timeout: 1200s
 images:
