@@ -1,4 +1,5 @@
 # Working deployment pipeline to compute engine
+# Execution commands are 
 
 steps:
   # Build and push app 1
