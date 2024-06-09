@@ -27,7 +27,7 @@ steps:
       - '--zone=europe-west1-b'
       - 'gustav@test-dc3'
       - '--command'
-      - 'chmod +x /home/gustav/pull_images.sh && bash /home/gustav/pull_images.sh'
+      - 'chmod +x /home/gustav/pull_images.sh && bash /home/gustav/pull_images.sh'    # Note: bash command is required to run script otherwise will result in permission denied.
 
 timeout: 1200s
 images:

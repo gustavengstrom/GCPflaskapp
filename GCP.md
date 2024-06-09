@@ -1,4 +1,5 @@
 
+
 # Create, Delete and edit a GCE
 
 gcloud compute instances delete test-dc1 --zone=europe-west1-b 
@@ -52,6 +53,26 @@ In the Cloud Build Console we first need to create a build trigger
 Notes:
 https://medium.com/google-cloud/connect-to-compute-engine-using-ssh-keys-and-cloud-build-319fa517456
 
+# Build
+
+docker build -t flask-app . 
+docker run --name test -p 8081:8081 -v ./credentials.json:/secrets/credentials.json flask-app
+
+# Artifacts
+
+First we need to activate service account for pushing to artifact. Configure authentication to Artifact Registry for Docker 
+
+https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper
+
+
+https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling
+
+
+### docker tag SOURCE-IMAGE LOCATION-docker.pkg.dev/PROJECT-ID/REPOSITORY/IMAGE:TAG
+docker tag flask-app europe-north1-docker.pkg.dev/reportall/testapp/flask-app-art:staging
+
+###  docker push europe-north1-docker.pkg.dev/reportall/REPOSITORY/IMAGE:TAG
+docker push europe-north1-docker.pkg.dev/reportall/testapp/flask-app-art:staging
 
 
 # SCRAPS:

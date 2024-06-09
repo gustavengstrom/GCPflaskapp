@@ -1,36 +1,13 @@
 
+# Cloud Build deployment
 
+The following contains examples fro deploying to a GCE instance using:
+- Cloud build
+- Docker
+- Cloud init
 
+We deploy a simple Nginx container:
 
-# Build
-
-docker build -t flask-app . 
-docker run --name test -p 8081:8081 -v ./credentials.json:/secrets/credentials.json flask-app
-
-# Artifacts
-
-First we need to activate service account for pushing to artifact. Configure authentication to Artifact Registry for Docker 
-
-https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper
-
-
-https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling
-
-
-### docker tag SOURCE-IMAGE LOCATION-docker.pkg.dev/PROJECT-ID/REPOSITORY/IMAGE:TAG
-docker tag flask-app europe-north1-docker.pkg.dev/reportall/testapp/flask-app-art:staging
-
-###  docker push europe-north1-docker.pkg.dev/reportall/REPOSITORY/IMAGE:TAG
-docker push europe-north1-docker.pkg.dev/reportall/testapp/flask-app-art:staging
-
-
-
-# Cloud run 
-
-Secrets in cloud run
-https://www.youtube.com/watch?v=JIE89dneaGo
-
-
-# Cloud build
-
-https://www.youtube.com/watch?v=RBpDLP9ZoCk
+1) Cloud-init is defined using the cloud-config-dc2.yml file. This is added as meta data to the GCE instance and run on server startup.
+2) Cloud build is setup using the cloudbuild.yml file. This files will build, push (to artifact) and pull the most recent image to the GCE instance and then run docker-compose.yml defined in the cloud-config-dc2.yml. This commands are run by executing the the pull_images.sh script on the GCE instance.
+3) An alternative deployment is found in cloudbuild_v1.yml which accomplishes the same but without the pull_images.sh script.
