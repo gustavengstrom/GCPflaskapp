@@ -9,13 +9,14 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
 
+
   # Step 2: Convert cloud-config.yaml to base64
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        base64 -w 0 cloud-config-dc2.yaml > cloud-config.base64
+        base64 -w 0 cloud-config-dc2.yml > cloud-config.base64
 
   # Step 3: Update metadata for managed instance group
   - name: 'gcr.io/cloud-builders/gcloud'
