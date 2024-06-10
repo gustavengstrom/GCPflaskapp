@@ -30,8 +30,8 @@ steps:
       - '--zone=europe-west1-b'
       - '--metadata'
       - 'user-data=$_CLOUD_CONFIG_BASE64'
-  substitutions:
-    _CLOUD_CONFIG_BASE64: $(cat cloud-config.base64)
+
+
 
   # Step 4: Trigger rolling update for managed instance group
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -47,6 +47,8 @@ steps:
       - '--replacement-method=recreate'
       - '--zone=europe-west1-b'
 
+substitutions:
+  _CLOUD_CONFIG_BASE64: $(cat cloud-config.base64)
 timeout: 1200s
 images:
   - 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1'
