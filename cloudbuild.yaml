@@ -41,9 +41,9 @@ steps:
       - 'rolling-action'
       - 'replace'
       - 'bcsrd-group'
-      - '--zone=europe-west1-b'
       - '--max-unavailable=1'
-      - '--min-ready=1'
+      - '--replacement-method=recreate'
+      - '--zone=europe-west1-b'
 
 timeout: 1200s
 images:
