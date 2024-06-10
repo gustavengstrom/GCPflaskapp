@@ -10,16 +10,12 @@ steps:
     args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
 
 
-  - name: 'read-config'
-    args: ['cat', 'cloud-config-dc2.yml']
-    env: ['CONFIG_CONTENT=$(cat cloud-config.yml)'] 
-
   # Step 3: Update metadata for managed instance group
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - '-c'
       - |
-        _CLOUD_CONFIG=$(cat cloud-config.yml)
+        _CLOUD_CONFIG=$(cat cloud-config-dc2.yml)
         gcloud compute instance-groups managed all-instances-config update bcsrd-group --zone=europe-west1-b --metadata "user-data=$_CLOUD_CONFIG"
 
 
