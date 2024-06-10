@@ -12,7 +12,7 @@ steps:
 
   - name: 'read-config'
     args: ['cat', 'cloud-config-dc2.yml']
-    outputs: ['config_content']
+    env: ['CONFIG_CONTENT=$(cat cloud-config.yml)'] 
 
   # Step 3: Update metadata for managed instance group
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -25,7 +25,7 @@ steps:
       - 'bcsrd-group'
       - '--zone=europe-west1-b'
       - '--metadata'
-      - 'user-data=${config_content}'
+      - 'user-data=${_CLOUD_CONFIG_BASE64}'
 
 
 
