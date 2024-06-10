@@ -10,6 +10,10 @@ steps:
     args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
 
 
+  - name: 'read-config'
+    args: ['cat', 'cloud-config-dc2.yml']
+    outputs: ['config_content']
+
   # Step 3: Update metadata for managed instance group
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
@@ -21,7 +25,7 @@ steps:
       - 'bcsrd-group'
       - '--zone=europe-west1-b'
       - '--metadata'
-      - 'user-data=$(cat cloud-config-dc2.yml)'
+      - 'user-data=${config_content}'
 
 
 
@@ -39,6 +43,8 @@ steps:
       - '--replacement-method=recreate'
       - '--zone=europe-west1-b'
 
+substitutions:
+  _CLOUD_CONFIG_BASE64: $(cat cloud-config-dc2.yml)
 timeout: 1200s
 images:
   - 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1'
