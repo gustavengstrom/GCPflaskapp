@@ -10,14 +10,6 @@ steps:
     args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
 
 
-  # Step 2: Convert cloud-config.yaml to base64
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        base64 -w 0 cloud-config-dc2.yml > cloud-config.base64
-
   # Step 3: Update metadata for managed instance group
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
@@ -48,7 +40,7 @@ steps:
       - '--zone=europe-west1-b'
 
 substitutions:
-  _CLOUD_CONFIG_BASE64: $(cat cloud-config.base64)
+  _CLOUD_CONFIG_BASE64: $(cat cloud-config-dc2.yml)
 timeout: 1200s
 images:
   - 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1'
