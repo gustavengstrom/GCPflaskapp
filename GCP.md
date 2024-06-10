@@ -14,7 +14,7 @@ gcloud compute instances add-metadata test-dc3 --zone=europe-west1-b --metadata-
 ## Log in to GCE 
 
 gcloud compute ssh test-dc3 --project reportall --zone europe-west1-b
-
+gcloud compute ssh bcsrd-group-v7mp --project reportall --zone europe-west1-b
 
 ## Reset instance
 gcloud compute instances reset test-dc3 --zone europe-west1-b

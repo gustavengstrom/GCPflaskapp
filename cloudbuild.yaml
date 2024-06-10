@@ -17,11 +17,7 @@ steps:
     - '-c'
     - |
           echo "Hello, world!" 
-          cloud_config=$(cat cloud-config-dc2.yml)
-          _CLOUD_CONFIG=`cat cloud-config-dc2.yml`
-          echo "_CLOUD_CONFIG: $_CLOUD_CONFIG"
-          echo "cloud_config: $cloud_config"
-          
+          cloud_config=$(cat cloud-config-dc2.yml)          
           gcloud compute instance-groups managed all-instances-config update bcsrd-group --zone=europe-west1-b --metadata "user-data=$cloud_config"
 
 
