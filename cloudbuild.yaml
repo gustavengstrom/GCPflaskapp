@@ -13,10 +13,11 @@ steps:
   # Step 3: Update metadata for managed instance group
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
-      - '-c'
-      - |
-        _CLOUD_CONFIG=$(cat cloud-config-dc2.yml)
-        gcloud compute instance-groups managed all-instances-config update bcsrd-group --zone=europe-west1-b --metadata "user-data=$_CLOUD_CONFIG"
+    - '-c'
+    - |
+          echo "Hello, world!" 
+          _CLOUD_CONFIG=$(cat cloud-config-dc2.yml)
+          gcloud compute instance-groups managed all-instances-config update bcsrd-group --zone=europe-west1-b --metadata "user-data=$_CLOUD_CONFIG"
 
 
   # Step 4: Trigger rolling update for managed instance group
