@@ -41,6 +41,7 @@ steps:
       - 'rolling-action'
       - 'replace'
       - 'bcsrd-group'
+      - '--max-surge=0'
       - '--max-unavailable=1'
       - '--replacement-method=recreate'
       - '--zone=europe-west1-b'
