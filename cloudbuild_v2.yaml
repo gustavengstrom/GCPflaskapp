@@ -9,40 +9,25 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
 
-  # Step 2: Convert cloud-config.yaml to base64
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        base64 -w 0 cloud-config-dc2.yaml > cloud-config.base64
 
-  # Step 3: Update metadata for managed instance group
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'compute'
-      - 'instance-groups'
-      - 'managed'
-      - 'all-instances-config'
-      - 'update'
-      - 'bcsrd-group'
+      - 'scp'
+      - 'pull_images.sh'
+      - 'gustav@test-dc3:/home/gustav/'
       - '--zone=europe-west1-b'
-      - '--metadata'
-      - 'user-data=$(cat cloud-config.base64)'
 
 
-  # Step 4: Trigger rolling update for managed instance group
+  # Run docker compose 
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'compute'
-      - 'instance-groups'
-      - 'managed'
-      - 'rolling-action'
-      - 'replace'
-      - 'bcsrd-group'
+      - 'ssh'
       - '--zone=europe-west1-b'
-      - '--max-unavailable=1'
-      - '--min-ready=1'
+      - 'gustav@test-dc3'
+      - '--command'
+      - 'chmod +x /home/gustav/pull_images.sh && bash /home/gustav/pull_images.sh'    # Note: bash command is required to run script otherwise will result in permission denied.
 
 timeout: 1200s
 images:
