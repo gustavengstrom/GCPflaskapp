@@ -12,6 +12,7 @@ steps:
 
   # Step 3: Update metadata for managed instance group
   - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
     args:
     - '-c'
     - |
