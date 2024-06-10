@@ -17,16 +17,10 @@ steps:
   # Step 3: Update metadata for managed instance group
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
-      - 'compute'
-      - 'instance-groups'
-      - 'managed'
-      - 'all-instances-config'
-      - 'update'
-      - 'bcsrd-group'
-      - '--zone=europe-west1-b'
-      - '--metadata'
-      - 'user-data=${_CLOUD_CONFIG_BASE64}'
-
+      - '-c'
+      - |
+        _CLOUD_CONFIG=$(cat cloud-config.yml)
+        gcloud compute instance-groups managed all-instances-config update bcsrd-group --zone=europe-west1-b --metadata "user-data=$_CLOUD_CONFIG"
 
 
   # Step 4: Trigger rolling update for managed instance group
@@ -43,8 +37,6 @@ steps:
       - '--replacement-method=recreate'
       - '--zone=europe-west1-b'
 
-substitutions:
-  _CLOUD_CONFIG_BASE64: $(cat cloud-config-dc2.yml)
 timeout: 1200s
 images:
   - 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1'
