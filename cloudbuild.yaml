@@ -29,7 +29,7 @@ steps:
       - 'bcsrd-group'
       - '--zone=europe-west1-b'
       - '--metadata'
-      - 'user-data=$(cat cloud-config.base64)'
+      - 'user-data=$(cat cloud-config-dc2.yml)'
 
 
   # Step 4: Trigger rolling update for managed instance group

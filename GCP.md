@@ -15,6 +15,7 @@ gcloud compute instances add-metadata test-dc3 --zone=europe-west1-b --metadata-
 
 gcloud compute ssh test-dc3 --project reportall --zone europe-west1-b
 
+
 ## Reset instance
 gcloud compute instances reset test-dc3 --zone europe-west1-b
 
