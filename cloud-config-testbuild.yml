@@ -20,7 +20,7 @@ write_files:
     version: "3.7"
     services:
       app:
-        image: europe-west1-docker.pkg.dev/beyondcsrd/test-build/nginx:tag1
+        image: europe-west1-docker.pkg.dev/beyondcsrd/testrepo/nginx:tag1
         ports:
           - 80:80   
 

@@ -4,10 +4,10 @@
 steps:
   # Build and push app 1
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'europe-west1-docker.pkg.dev/beyondcsrd/test-build/nginx:tag1', './nginx']
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/beyondcsrd/testrepo/nginx:tag1', './nginx']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'europe-west1-docker.pkg.dev/beyondcsrd/test-build/nginx:tag1']
+    args: ['push', 'europe-west1-docker.pkg.dev/beyondcsrd/testrepo/nginx:tag1']
 
 
   # Step 3: Update metadata for managed instance group
@@ -37,7 +37,7 @@ steps:
 
 timeout: 1200s
 images:
-  - 'europe-west1-docker.pkg.dev/beyondcsrd/test-build/nginx:tag1'
+  - 'europe-west1-docker.pkg.dev/beyondcsrd/testrepo/nginx:tag1'
 
 options:
   logging: CLOUD_LOGGING_ONLY
