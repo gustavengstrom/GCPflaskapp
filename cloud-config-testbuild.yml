@@ -1,0 +1,51 @@
+#cloud-config
+users:
+- name: composer
+  uid: 2000
+  groups: docker
+
+write_files:
+- path: /home/composer/auth.sh
+  permissions: 0755
+  owner: composer
+  content: |
+    TOKEN=$(curl --silent --header  "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token)
+    ACCESS=$(echo ${TOKEN} | grep --extended-regexp --only-matching "(ya29.[0-9a-zA-Z._-]*)")
+    /usr/bin/docker login -u oauth2accesstoken -p "${ACCESS}" https://europe-west1-docker.pkg.dev
+    
+- path: /home/composer/docker-compose.yml
+  permissions: 0644
+  owner: composer
+  content: |
+    version: "3.7"
+    services:
+      app:
+        image: europe-west1-docker.pkg.dev/beyondcsrd/test-build/nginx:tag1
+        ports:
+          - 80:80   
+
+- path: /etc/systemd/system/composer.service
+  permissions: 0644
+  owner: root
+  content: |
+    [Unit]
+    Description=Composer Service
+    Requires=docker.service network-online.target
+    After=docker.service network-online.target
+
+    [Service]
+    User=composer
+    Environment="HOME=/home/composer"
+    ExecStartPre=/bin/bash chmod +x /home/composer/auth.sh  
+    ExecStartPre=/bin/bash /home/composer/auth.sh  
+    ExecStart=/usr/bin/docker run --rm -v  /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 up
+    ExecStop=/usr/bin/docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "/home/composer/.docker:/root/.docker" -v "/home/composer:/home/composer" -w="/home/composer" docker/compose:1.24.0 rm -f
+    Restart=on-failure
+    RestartSec=10
+
+    [Install]
+    WantedBy=multi-user.target
+
+runcmd:
+- systemctl daemon-reload
+- systemctl enable --now --no-block composer.service

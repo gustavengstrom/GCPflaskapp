@@ -28,8 +28,8 @@ We deploy a simple Nginx container:
 
 1) Creata an instance template
 2) Create an instance group
-3)
+3) Run cloud build trigger  >> git add . & git commit -m "" & git push
 
 https://cloud.google.com/compute/docs/instance-groups/set-mig-aic
 
-'$(cat /path/to/your/cloud-config.yml)'
+

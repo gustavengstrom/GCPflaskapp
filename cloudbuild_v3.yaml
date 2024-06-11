@@ -4,10 +4,10 @@
 steps:
   # Build and push app 1
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'europe-west1-docker.pkg.dev/beyondcsrd/test-build/nginx:tag1', './nginx']
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1', './nginx']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'europe-west1-docker.pkg.dev/beyondcsrd/test-build/nginx:tag1']
+    args: ['push', 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1']
 
 
   # Step 3: Update metadata for managed instance group
@@ -17,8 +17,8 @@ steps:
     - '-c'
     - |
           echo "Hello, world!" 
-          cloud_config=$(cat cloud-config-testbuild.yml)          
-          gcloud compute instance-groups managed all-instances-config update bcsrd-backend --zone=europe-west1-b --metadata "user-data=$cloud_config"
+          cloud_config=$(cat cloud-config-dc2.yml)          
+          gcloud compute instance-groups managed all-instances-config update bcsrd-group --zone=europe-west1-b --metadata "user-data=$cloud_config"
 
 
   # Step 4: Trigger rolling update for managed instance group
@@ -29,7 +29,7 @@ steps:
       - 'managed'
       - 'rolling-action'
       - 'replace'
-      - 'bcsrd-backend'
+      - 'bcsrd-group'
       - '--max-surge=0'
       - '--max-unavailable=1'
       - '--replacement-method=recreate'
@@ -37,7 +37,7 @@ steps:
 
 timeout: 1200s
 images:
-  - 'europe-west1-docker.pkg.dev/beyondcsrd/test-build/nginx:tag1'
+  - 'europe-west1-docker.pkg.dev/reportall/cbuild/nginx:tag1'
 
 options:
   logging: CLOUD_LOGGING_ONLY
